@@ -1,6 +1,7 @@
 import torch
 from torch import nn
 from torch.nn import functional as F
+import numpy as np
 import config as cfg
 
 
@@ -53,6 +54,10 @@ class LocalNetwork(nn.Module):
             nn.Linear(in_features=20, out_features=6),
             nn.Tanh(),
         )
+        bias = torch.from_numpy(np.array([1, 0, 0, 0, 1, 0]))
+
+        nn.init.constant(self.fc[3].weight, 0)
+        self.fc[3].bias.data.copy_(bias)
 
     def forward(self, img):
         '''
