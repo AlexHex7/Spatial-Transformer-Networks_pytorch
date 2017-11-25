@@ -23,13 +23,12 @@
 
 **STN**
 
-- ========= Testing: epoch[195/200] loss:0.1682 acc:0.9613
-- ========= Testing: epoch[196/200] loss:0.1538 acc:0.9635
-- ========= Testing: epoch[197/200] loss:0.1501 acc:0.9628
-- ========= Testing: epoch[198/200] loss:0.1351 acc:0.9646
-- ========= Testing: epoch[199/200] loss:0.1398 acc:0.9657
+- ========= Testing: epoch[195/200] loss:0.0899 acc:0.9743
+- ========= Testing: epoch[196/200] loss:0.0889 acc:0.9745
+- ========= Testing: epoch[197/200] loss:0.0920 acc:0.9703
+- ========= Testing: epoch[198/200] loss:0.0871 acc:0.9765
+- ========= Testing: epoch[199/200] loss:0.0900 acc:0.9748
 
 ## Transform Image
-**Not sure why the transform image looks strange... I use torchvision.utils to save image.**
-(input|transform|input|transform)
+**(input|transform|input|transform)**
 ![](transform_img/0.png)
