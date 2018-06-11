@@ -6,28 +6,30 @@
 - Do the Experiments on the **cluttered MNIST** dataset of [daviddao](https://github.com/daviddao/spatial-transformer-tensorflow).
 - The accuracy and loss records can be find in **cnn.out & stn.out**.
 - The transform img can be find in **transform_img/**.
+- **py35_pytorch03_version contains** the old version code
 
 ## Environment
-- python3.5
-- pytorch '0.2.0+eed323c'
+- python3.6
+- pytorch 0.4.0
+
 
 
 ## Accuracy
 **CNN**
 
-- ========= Testing: epoch[195/200] loss:0.5183 acc:0.9188
-- ========= Testing: epoch[196/200] loss:0.5136 acc:0.9208
-- ========= Testing: epoch[197/200] loss:0.5165 acc:0.9167
-- ========= Testing: epoch[198/200] loss:0.4953 acc:0.9182
-- ========= Testing: epoch[199/200] loss:0.5040 acc:0.9249
+- Testing: epoch[195/200] loss:0.5264 acc:0.9211
+- Testing: epoch[196/200] loss:0.5185 acc:0.9194
+- Testing: epoch[197/200] loss:0.5160 acc:0.9158
+- Testing: epoch[198/200] loss:0.5053 acc:0.9183
+- Testing: epoch[199/200] loss:0.5057 acc:0.9153
 
 **STN**
 
-- ========= Testing: epoch[195/200] loss:0.0899 acc:0.9743
-- ========= Testing: epoch[196/200] loss:0.0889 acc:0.9745
-- ========= Testing: epoch[197/200] loss:0.0920 acc:0.9703
-- ========= Testing: epoch[198/200] loss:0.0871 acc:0.9765
-- ========= Testing: epoch[199/200] loss:0.0900 acc:0.9748
+- Testing: epoch[195/200] loss:0.0880 acc:0.9762
+- Testing: epoch[196/200] loss:0.0961 acc:0.9757
+- Testing: epoch[197/200] loss:0.0893 acc:0.9742
+- Testing: epoch[198/200] loss:0.1015 acc:0.9740
+- Testing: epoch[199/200] loss:0.0938 acc:0.9738
 
 ## Transform Image
 **(input|transform|input|transform)**

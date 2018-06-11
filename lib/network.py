@@ -56,7 +56,7 @@ class LocalNetwork(nn.Module):
         )
         bias = torch.from_numpy(np.array([1, 0, 0, 0, 1, 0]))
 
-        nn.init.constant(self.fc[3].weight, 0)
+        nn.init.constant_(self.fc[3].weight, 0)
         self.fc[3].bias.data.copy_(bias)
 
     def forward(self, img):
@@ -73,3 +73,11 @@ class LocalNetwork(nn.Module):
         img_transform = F.grid_sample(img, grid)
 
         return img_transform
+
+
+if __name__ == '__main__':
+    net = LocalNetwork()
+
+    x = torch.randn(1, 1, 40, 40) + 1
+    net(x)
+

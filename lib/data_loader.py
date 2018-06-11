@@ -17,7 +17,7 @@ def to_torch_formart(img, target, data_type=''):
     '''
     batch_size = img.size(0)
     img = img.view(batch_size, cfg.channel, cfg.height, cfg.width)
-    target = target.view(batch_size)
+    target = target.view(batch_size).long()
     print(data_type, img.size(), target.size())
     return img, target
 
@@ -40,9 +40,9 @@ def get_data_loader():
     y_test = torch.cat([y_test, y_valid], dim=0)
     X_test, y_test = to_torch_formart(X_test, y_test, data_type='Testing')
 
-    train_dataset = data.TensorDataset(data_tensor=X_train, target_tensor=y_train)
-    test_dataset = data.TensorDataset(data_tensor=X_test, target_tensor=y_test)
-
+    train_dataset = data.TensorDataset(X_train, y_train)
+    test_dataset = data.TensorDataset(X_test, y_test)
+    data.TensorDataset()
     train_loader = data.DataLoader(dataset=train_dataset, batch_size=cfg.train_batch_size, shuffle=True)
     test_loader = data.DataLoader(dataset=test_dataset, batch_size=cfg.test_batch_size)
 

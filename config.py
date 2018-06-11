@@ -1,4 +1,4 @@
-cuda_num = 1
+cuda_num = 0
 LR = 0.001
 epoch = 200
 show_train_result_every_batch = 100

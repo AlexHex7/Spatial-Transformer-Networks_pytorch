@@ -11,7 +11,8 @@ import os
 
 def calc_acc(x, y):
     x = torch.max(x, dim=-1)[1]
-    accuracy = sum(x == y) / x.size(0)
+    hit = torch.sum(x == y).item() * 1.0
+    accuracy = hit / x.size(0)
     return accuracy
 
 logging.getLogger().setLevel(logging.INFO)
@@ -38,10 +39,8 @@ loss_func = nn.CrossEntropyLoss()
 for epoch_idx in range(cfg.epoch):
     # ========================== Training Model =============================
     net.train()
+    torch.set_grad_enabled(True)
     for batch_idx, (train_img, train_target) in enumerate(train_loader):
-        train_img = Variable(train_img)
-        train_target = Variable(train_target)
-
         if torch.cuda.is_available():
             train_img = train_img.cuda(cfg.cuda_num)
             train_target = train_target.cuda(cfg.cuda_num)
@@ -53,22 +52,19 @@ for epoch_idx in range(cfg.epoch):
         loss.backward()
         opt.step()
 
-        acc = calc_acc(predict.cpu().data, train_target.cpu().data)
-
+        # acc = calc_acc(predict, train_target)
         # if batch_idx % cfg.show_train_result_every_batch == 0:
         #     logging.info('epoch[%d/%d] batch[%d/%d] loss:%.4f acc:%.4f'
         #                  % (epoch_idx, cfg.epoch, batch_idx, train_batch_nb, loss.data[0], acc))
 
     # ========================== Testing Model =============================
     if (epoch_idx + 1) % cfg.test_every_epoch == 0:
-        net.eval()
         total_loss = 0
         total_acc = 0
+        net.eval()
+        torch.set_grad_enabled(False)
         for batch_idx, (test_img, test_target) in enumerate(test_loader):
             batch_size = test_img.size(0)
-
-            test_img = Variable(test_img, volatile=True)
-            test_target = Variable(test_target, volatile=True)
 
             if torch.cuda.is_available():
                 test_img = test_img.cuda(cfg.cuda_num)
@@ -77,7 +73,7 @@ for epoch_idx in range(cfg.epoch):
             transform_img, predict = net(test_img)
 
             loss = loss_func(predict, test_target)
-            acc = calc_acc(predict.cpu().data, test_target.cpu().data)
+            acc = calc_acc(predict, test_target)
 
             total_loss += loss
             total_acc += acc
@@ -94,7 +90,7 @@ for epoch_idx in range(cfg.epoch):
 
         mean_loss = total_loss / test_batch_nb
         mean_acc = total_acc / test_batch_nb
-        logging.info('========= Testing: epoch[%d/%d] loss:%.4f acc:%.4f' % (epoch_idx, cfg.epoch, mean_loss.data[0], mean_acc))
+        logging.info('========= Testing: epoch[%d/%d] loss:%.4f acc:%.4f' % (epoch_idx, cfg.epoch, mean_loss.item(), mean_acc))
 
     if (epoch_idx + 1) % cfg.save_model_every_epoch == 0:
         state_dict = net.state_dict()
